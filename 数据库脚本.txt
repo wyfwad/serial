@@ -1,0 +1,18 @@
+create table sys_serial_num
+(
+  id                 bigint(11) auto_increment
+    primary key,
+  module_name        varchar(50)       null comment '模块名称',
+  module_code        varchar(50)       null comment '模块代码',
+  config_template    varchar(50)       null comment '序列号模块',
+  current_serial     int(20) default 0 null comment '当前序列号的值',
+  pre_max_num        int(10)           null comment '每次预生产的数量',
+  auto_increment_num int(10)           null comment '每次增加的数据',
+  data_width         int(10)           not null comment '序列号的长度',
+  input_date         datetime          null,
+  modify_date        datetime          null,
+  modify_user_id     int               null,
+  input_user_id      bigint(11)        null,
+  status             int               null comment '数据状态'
+)
+  comment '流水号表';

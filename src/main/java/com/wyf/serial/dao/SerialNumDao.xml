@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sinosig.basic.system.dao.SerialNumDao">
+    <resultMap id="BaseResultMap" type="com.sinosig.basic.system.pojo.SerialNumPo">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="module_name" jdbcType="VARCHAR" property="moduleName"/>
+        <result column="module_code" jdbcType="VARCHAR" property="moduleCode"/>
+        <result column="config_template" jdbcType="VARCHAR" property="configTemplate"/>
+        <result column="current_serial" jdbcType="INTEGER" property="currentSerial"/>
+        <result column="pre_max_num" jdbcType="INTEGER" property="preMaxNum"/>
+        <result column="auto_increment_num" jdbcType="INTEGER" property="autoIncrementNum"/>
+        <result column="input_date" jdbcType="TIMESTAMP" property="inputDate"/>
+        <result column="input_user_id" jdbcType="BIGINT" property="inputUserId"/>
+        <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate"/>
+        <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="data_width" jdbcType="INTEGER" property="dataWidth"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,
+        module_name,
+        module_code,
+        config_template,
+        current_serial,
+        pre_max_num,
+        auto_increment_num,
+        input_date,
+        input_user_id,
+        modify_date,
+        modify_user_id,
+        status,
+        data_width
+    </sql>
+    <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_serial_num
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="getByModuleCode" parameterType="string" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from sys_serial_num
+        where status = 1
+              and  module_code = #{moduleCode}
+    </select>
+    <delete id="delete" parameterType="java.lang.Long">
+        update sys_serial_num
+        set status        = 0,
+            modify_user_id=#{modifyUserId},
+            modify_date   = #{modifyDate}
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="save" parameterType="com.sinosig.basic.system.pojo.SerialNumPo">
+        insert into sys_serial_num
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="moduleName != null">
+                module_name,
+            </if>
+            <if test="moduleCode != null">
+                module_code,
+            </if>
+            <if test="configTemplate != null">
+                config_template,
+            </if>
+            <if test="currentSerial != null">
+                current_serial,
+            </if>
+            <if test="preMaxNum != null">
+                pre_max_num,
+            </if>
+            <if test="autoIncrementNum != null">
+                auto_increment_num,
+            </if>
+            <if test="inputDate != null">
+                input_date,
+            </if>
+            <if test="inputUserId != null">
+                input_user_id,
+            </if>
+            <if test="modifyDate != null">
+                modify_date,
+            </if>
+            <if test="modifyUserId != null">
+                modify_user_id,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="dataWidth != null">
+                data_width,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="moduleName != null">
+                #{moduleName,jdbcType=VARCHAR},
+            </if>
+            <if test="moduleCode != null">
+                #{moduleCode,jdbcType=VARCHAR},
+            </if>
+            <if test="configTemplate != null">
+                #{configTemplate,jdbcType=VARCHAR},
+            </if>
+            <if test="currentSerial != null">
+                #{currentSerial,jdbcType=BIGINT},
+            </if>
+            <if test="preMaxNum != null">
+                #{preMaxNum,jdbcType=VARCHAR},
+            </if>
+            <if test="autoIncrementNum != null">
+                #{autoIncrementNum,jdbcType=INTEGER},
+            </if>
+            <if test="inputDate != null">
+                #{inputDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="inputUserId != null">
+                #{inputUserId,jdbcType=BIGINT},
+            </if>
+            <if test="modifyDate != null">
+                #{modifyDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyUserId != null">
+                #{modifyUserId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="dataWidth != null">
+                #{dataWidth,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="com.sinosig.basic.system.pojo.SerialNumPo">
+        update sys_serial_num
+        <set>
+            <if test="moduleName != null">
+                module_name = #{moduleName,jdbcType=VARCHAR},
+            </if>
+            <if test="moduleCode != null">
+                module_code = #{moduleCode,jdbcType=VARCHAR},
+            </if>
+            <if test="configTemplate != null">
+                config_template = #{configTemplate,jdbcType=VARCHAR},
+            </if>
+            <if test="currentSerial != null">
+                current_serial = #{currentSerial,jdbcType=BIGINT},
+            </if>
+            <if test="preMaxNum != null">
+                pre_max_num = #{preMaxNum,jdbcType=VARCHAR},
+            </if>
+            <if test="autoIncrementNum != null">
+                auto_increment_num = #{autoIncrementNum,jdbcType=INTEGER},
+            </if>
+            <if test="inputDate != null">
+                input_date = #{inputDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="inputUserId != null">
+                input_user_id = #{inputUserId,jdbcType=BIGINT},
+            </if>
+            <if test="modifyDate != null">
+                modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyUserId != null">
+                modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="dataWidth != null">
+                data_width = #{dataWidth,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+</mapper>
